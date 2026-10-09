@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CHEEMA ACADEMY — Live Online Classes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div class="cursor"></div>
+<div class="vignette"></div>
+
+<header>
+  <div class="logo"><span class="gem"></span>CHEEMA ACADEMY</div>
+  <span class="pill"><i></i> Classes Live</span>
+</header>
+
+<main>
+  <section class="hero">
+    <p class="eyebrow">PREMIUM ONLINE ACADEMY</p>
+    <h1>Learn Live.<br><span>Beyond Ordinary.</span></h1>
+    <p class="sub">Elite classes, taught live. One tap to join. No login. No limits.</p>
+
+    <a id="joinBtn" class="join" href="https://zoom.us/j/YOUR_MEETING_ID" target="_blank" rel="noopener">
+      <span>Join Class on Zoom</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+
+    <ul class="ticks">
+      <li>One-tap Zoom access</li>
+      <li>Live student chat</li>
+      <li>No account needed</li>
+    </ul>
+  </section>
+
+  <section class="chat" id="chat">
+    <div class="chat-head">
+      <b>Student Chat</b>
+      <span id="status"><i></i> connecting</span>
+    </div>
+    <div id="msgs"></div>
+    <form id="form" autocomplete="off">
+      <input id="name" maxlength="20" placeholder="Your name" required>
+      <div class="row">
+        <input id="text" maxlength="300" placeholder="Type a message..." required>
+        <button type="submit">Send</button>
+      </div>
+    </form>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

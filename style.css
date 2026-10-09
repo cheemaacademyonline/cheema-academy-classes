@@ -1,0 +1,63 @@
+:root{--b:#4d6bff;--v:#8a5cff;--t:#e9eeff;--m:#8d98c9}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Space Grotesk',sans-serif;background:#02030a;color:var(--t);overflow-x:hidden}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+.vignette{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at center,transparent 35%,#02030a 100%)}
+header,main{position:relative;z-index:2}
+header{display:flex;justify-content:space-between;align-items:center;padding:26px 6vw}
+.logo{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.35em;font-size:18px}
+.gem{width:26px;height:26px;background:linear-gradient(135deg,#fff,var(--b));transform:rotate(45deg);border-radius:5px;box-shadow:0 0 22px var(--b)}
+.pill{display:flex;align-items:center;gap:9px;padding:10px 20px;border-radius:50px;background:rgba(20,26,60,.55);border:1px solid rgba(120,140,255,.25);backdrop-filter:blur(14px);font-size:14px}
+.pill i,#status i{width:8px;height:8px;border-radius:50%;background:#35f0a0;box-shadow:0 0 12px #35f0a0;animation:pulse 1.2s infinite}
+@keyframes pulse{50%{opacity:.3;transform:scale(.7)}}
+
+main{display:grid;grid-template-columns:1.2fr .8fr;gap:5vw;align-items:center;min-height:calc(100vh - 100px);padding:0 6vw 40px}
+.eyebrow{letter-spacing:.4em;font-size:12px;color:var(--b);margin-bottom:22px}
+h1{font-size:clamp(42px,6.5vw,92px);line-height:1.02;font-weight:500;letter-spacing:-.02em}
+h1 span{background:linear-gradient(90deg,#fff,var(--b) 50%,var(--v));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 22px rgba(77,107,255,.6))}
+.sub{margin:24px 0 38px;font-size:18px;font-weight:300;color:var(--m);max-width:480px;line-height:1.6}
+
+.join{position:relative;display:inline-flex;align-items:center;gap:14px;padding:20px 40px;border-radius:60px;color:#fff;text-decoration:none;font-weight:500;font-size:18px;background:linear-gradient(120deg,var(--b),var(--v));box-shadow:0 0 40px rgba(77,107,255,.65),inset 0 0 0 1px rgba(255,255,255,.25);overflow:hidden;transition:transform .25s,box-shadow .25s}
+.join::after{content:'';position:absolute;top:0;left:-70%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:shine 2.6s infinite}
+@keyframes shine{to{left:130%}}
+.join:hover{transform:translateY(-4px) scale(1.04);box-shadow:0 0 70px rgba(110,130,255,.95),inset 0 0 0 1px rgba(255,255,255,.4)}
+.ticks{display:flex;gap:26px;flex-wrap:wrap;list-style:none;margin-top:36px;font-size:14px;color:var(--m)}
+.ticks li::before{content:'✓';display:inline-grid;place-items:center;width:24px;height:24px;margin-right:10px;border:1px solid rgba(120,140,255,.4);border-radius:7px;color:#fff;font-size:12px;transform:rotate(0)}
+
+.chat{display:flex;flex-direction:column;height:min(560px,70vh);border-radius:26px;background:linear-gradient(160deg,rgba(24,32,78,.55),rgba(6,8,22,.7));border:1px solid rgba(120,140,255,.28);backdrop-filter:blur(22px);box-shadow:0 30px 90px rgba(0,0,0,.6),0 0 60px rgba(77,107,255,.2);overflow:hidden;transition:transform .15s}
+.chat-head{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid rgba(120,140,255,.18)}
+#status{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--m);text-transform:uppercase;letter-spacing:.12em}
+#msgs{flex:1;overflow-y:auto;padding:18px 22px;display:flex;flex-direction:column;gap:12px;scrollbar-width:thin;scrollbar-color:#2a3a9a transparent}
+.msg{padding:12px 16px;border-radius:16px 16px 16px 4px;background:rgba(77,107,255,.12);border:1px solid rgba(120,140,255,.18);animation:pop .35s ease}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.96)}}
+.msg b{display:block;font-size:12px;letter-spacing:.08em;color:#9fb2ff;margin-bottom:4px}
+.msg p{font-size:15px;line-height:1.45;word-break:break-word}
+form{padding:16px 20px 20px;border-top:1px solid rgba(120,140,255,.18);display:flex;flex-direction:column;gap:10px}
+.row{display:flex;gap:10px}
+input{width:100%;padding:14px 18px;border-radius:14px;background:rgba(4,6,20,.7);border:1px solid rgba(120,140,255,.25);color:var(--t);font:inherit;outline:none;transition:.2s}
+input:focus{border-color:var(--b);box-shadow:0 0 18px rgba(77,107,255,.5)}
+button{padding:0 26px;border:0;border-radius:14px;cursor:pointer;color:#fff;font:inherit;font-weight:500;background:linear-gradient(120deg,var(--b),var(--v));box-shadow:0 0 20px rgba(77,107,255,.5);transition:.2s}
+button:hover{transform:scale(1.06);box-shadow:0 0 34px rgba(110,130,255,.9)}
+
+@media(max-width:900px){main{grid-template-columns:1fr;gap:40px;padding-top:10px}.chat{height:520px}}
+
+/* ===== extra luxury & 3D ===== */
+.logo{letter-spacing:.22em;font-size:17px}
+.cursor{position:fixed;left:50%;top:50%;width:380px;height:380px;border-radius:50%;pointer-events:none;z-index:1;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(90,110,255,.22),transparent 65%)}
+body::after{content:'';position:fixed;inset:0;z-index:3;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px)}
+.hero{transition:transform .12s ease-out;transform-style:preserve-3d;will-change:transform}
+h1{animation:float 5s ease-in-out infinite;text-shadow:0 0 1px rgba(255,255,255,.2)}
+@keyframes float{50%{transform:translateY(-10px)}}
+.eyebrow{display:flex;align-items:center;gap:14px}
+.eyebrow::before{content:'';width:46px;height:1px;background:linear-gradient(90deg,transparent,var(--b))}
+@property --a{syntax:'<angle>';initial-value:0deg;inherits:false}
+.chat{position:relative}
+.chat::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:conic-gradient(from var(--a),transparent 55%,#6f8cff,#c08cff,transparent);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spin 3.5s linear infinite;pointer-events:none}
+@keyframes spin{to{--a:360deg}}
+.join{box-shadow:0 14px 0 -6px rgba(40,50,160,.8),0 0 50px rgba(77,107,255,.7),inset 0 0 0 1px rgba(255,255,255,.3)}
+.join:active{transform:translateY(2px) scale(.98)}
+.ticks li{transition:.25s}
+.ticks li:hover{color:#fff;transform:translateY(-3px);text-shadow:0 0 14px var(--b)}
+.msg{transition:transform .2s}
+.msg:hover{transform:translateX(4px) scale(1.01);border-color:rgba(160,180,255,.5)}

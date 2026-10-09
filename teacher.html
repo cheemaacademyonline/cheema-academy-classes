@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>CHEEMA ACADEMY — Teacher</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="logo"><span class="gem"></span>CHEEMA ACADEMY</div><span class="pill">Teacher Panel</span></header>
+
+<div id="login" class="chat" style="max-width:420px;margin:8vh auto;height:auto;padding:28px;position:relative;z-index:2">
+  <b style="margin-bottom:14px;display:block">Enter teacher code</b>
+  <input id="code" type="password" placeholder="Secret code">
+  <p id="err" style="color:#ff7a9a;margin:10px 0;font-size:14px"></p>
+  <div class="row"><button id="go" style="padding:14px 26px">Open</button></div>
+</div>
+
+<div id="app" class="tw" hidden>
+  <div class="chat list" style="padding:16px;height:70vh" id="list"></div>
+  <section class="chat">
+    <div class="chat-head"><b id="who">Select a student</b></div>
+    <div id="msgs"></div>
+    <form id="form"><div class="row"><input id="text" maxlength="300" placeholder="Reply..." required><button>Send</button></div></form>
+  </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+const SUPABASE_URL = 'https://mzhcamnkpwmnfvxnhwwj.supabase.co', SUPABASE_KEY = 'sb_publishable_1fCRe0Q_-5PfqkGrfhNOqQ_5Hws0sRM';
+const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const $ = id => document.getElementById(id);
+let code = '', cur = null, seen = 0, timer = null;
+
+function add(m) {
+  const d = document.createElement('div'); d.className = 'msg' + (m.from_teacher ? ' teacher' : '');
+  const b = document.createElement('b'); b.textContent = m.from_teacher ? 'You' : m.student_name;
+  const p = document.createElement('p'); p.textContent = m.content;
+  d.append(b, p); $('msgs').append(d); $('msgs').scrollTop = $('msgs').scrollHeight;
+}
+async function loadList() {
+  const { data, error } = await db.rpc('teacher_students', { code });
+  if (error) return false;
+  $('list').replaceChildren();
+  data.forEach(s => {
+    const b = document.createElement('button');
+    b.textContent = s.student_name + ' · ' + new Date(s.last_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    if (s.student_id === cur) b.className = 'on';
+    b.onclick = () => { cur = s.student_id; seen = 0; $('msgs').replaceChildren(); $('who').textContent = s.student_name; poll(); loadList(); };
+    $('list').append(b);
+  });
+  return true;
+}
+async function poll() {
+  if (!cur) return;
+  const { data } = await db.rpc('teacher_get', { code, sid: cur });
+  (data || []).forEach(m => { if (m.id > seen) { seen = m.id; add(m); } });
+}
+$('go').onclick = async () => {
+  code = $('code').value;
+  if (await loadList()) { $('login').hidden = true; $('app').hidden = false; timer = setInterval(() => { loadList(); poll(); }, 2500); }
+  else $('err').textContent = 'Wrong code or Supabase not set up.';
+};
+$('form').addEventListener('submit', async e => {
+  e.preventDefault();
+  if (!cur) return;
+  const msg = $('text').value.trim(); $('text').value = '';
+  await db.rpc('teacher_send', { code, sid: cur, msg });
+  poll();
+});
+</script>
+</body>
+</html>
